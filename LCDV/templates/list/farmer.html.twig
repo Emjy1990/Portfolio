@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+<a class="btn" href= '{{ path('home')}}'>Retour à l'accueil</a></br></br>
+<div class="contain flex">
+<div class="leftmenu">
+
+</div>
+<div class = "list list-farmer">
+
+  {% for farmer in farmers %}
+    <div class="item item-farmer" >
+
+    <div >
+      <div class="headproduct">
+      <img src="/images/FARMER.png"/>
+      <a href="{{path('profil_farmer',{'id' : farmer.id }) }}"><h3 class="farmername">{{ farmer.firstname }} {{farmer.lastname}}</h3></a>
+      </div>
+      <div class="descriptionproduct">
+        <div class="contentproduct">
+          <div class="buttondescriptif">
+            <button class="btn" <span> {{ farmer.email }} </span> </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}

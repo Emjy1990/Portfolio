@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+<a class="btn" href= '{{ path('home')}}'>Retour à l'accueil</a></br></br>
+<div class="contain flex ">
+<div class="leftmenu">
+  <div class="btn-group-vertical" role="group" aria-label="Basic example">
+
+    <button type="button" class="btn btn-secondary btnmenu"><a href="{{path('list_product')}}">Tous</a></button>
+
+    {% for category in categories %}
+      <button type="button" class="btn btn-secondary btnmenu"><a  href="/product/category/{{ category.id }}"> {{ category.name }} </a></button>
+    {% endfor %}
+
+  </div>
+</div>
+
+
+<div class = "list">
+
+  {% for product in products %}
+    <div class="item item-user">
+
+
+      <div class="headproduct">
+      {% if product.image is null %}
+      <img src="/images/legumes.jpg"/>
+      {% else %}
+      <img src="/uploads/images/{{product.image}}"/>
+      {% endif %}
+
+      </div>
+
+        <div class="contentproduct">
+        <a href="/show/product/{{product.id}}"><h3 class="productname">{{ product.name }}</h3></a>
+          <p> {{ product.description }} </p></br>
+          <div class="buttondescriptif">
+            <button class="btn" <span> {{ product.price }} &#8364;/kg</span></button>
+            <button class="btn" <span>Disponible : {{ product.quantity }} lots</span> </button>
+          </div></br>
+          {% if product.quantity != 0 %}
+           {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <p class="btn btnaddCart" data-id={{product.id}}>Ajouter</p></br>
+          {% else %}
+          <p> Connectez vous pour commandez :) </p>
+           {% endif %}
+          {% else %}
+          <p>Rupture de stock</p></br>
+          {% endif %}
+        </div>
+          <p class="footerproduct"> Cultivé avec &#9829; par <a href="{{ path('profil_farmer', { 'id': product.user.id}) }}">{{ product.user.username }}</a> </p>
+      </div>
+
+
+  {% endfor %}
+</div>
+
+
+
+{% for product in products %}
+  <div class="addCart addCart{{product.id}}">
+  <i class="fas fa-times-circle close"></i>
+
+
+  <form action="/addCart" method="get" class="form-example">
+    <input type="hidden" name="product" value={{product.id}}>
+
+    <div class="form-example">
+      <label for="qt" name="qt">Entrez la quantité </label>
+
+
+      <select id="qt" name="qt">
+        {% for i in 1..product.quantity %}
+        <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+      </select>
+
+
+    </div>
+    <div class="form-example">
+      <input type="submit" value="Ajouter!">
+    </div>
+    </form>
+
+
+  </div>
+{% endfor %}
+
+
+</div>
+
+{% endblock %}

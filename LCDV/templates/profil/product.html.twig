@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel Utilisateur{% endblock %}
+
+{% block body %}
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Categorie</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Fermier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> {{ product.category.name }} </td>
+      <td> {{ product.name }} </td></br></br>
+      <td> {{ product.description }} </td>
+      <td> {{ product.price }} </td>
+      <td> {{ product.user.username }} </td>
+    </tr>
+  </tbody>
+</table>
+
+</br><a class="btn" href= '{{ path('list_product')}}'>Retour à la liste des produits</a>
+
+
+
+{% endblock %}

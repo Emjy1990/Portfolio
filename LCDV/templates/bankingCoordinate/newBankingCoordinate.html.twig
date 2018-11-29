@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelles Coordonées bancaires{% endblock %}
+
+{% block body %}
+<a class="btn" href= '{{ path('profil', { 'id': app.user.id }) }}'>Retour à l'accueil</a></br></br>
+<div class="inscription">
+
+    {{ include('bankingCoordinate/_form_banking_coordinate.html.twig') }}
+</div>
+
+{% endblock %}

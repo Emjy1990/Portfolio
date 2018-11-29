@@ -1,0 +1,7 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'orderForm'}})  }}
+
+
+{{ form_widget(form) }}
+{{ form_row(form.image) }}
+<button class="btn">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

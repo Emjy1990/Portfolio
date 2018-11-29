@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+
+
+{% for key,command in commands %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Produits</th>
+      <th scope="col">Quantité</th>
+      <th scope="col">Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in command.product %}
+    <tr>
+      <th scope="row"></th>
+      <td>{{product.name}}</td>
+      <td>{{product.quantity}}</td>
+      <td>{{product.price}}&nbsp€</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <th scope="row">Sous-Commande n° {{key}}</th>
+      <td>Prix total de la sous-commande = {{command.price}}&nbsp€</td>
+    </tr>
+  </tbody>
+  </table>
+{% endfor %}
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Prix total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <th scope="row">Récapitulatif</th>
+  <td>{{app.session.get('price')}}&nbsp€</td>
+  </tr>
+  </tbody>
+  </table>
+
+
+
+
+<div class="card cardCommand" style="width: 36rem;">
+  <img class="card-img-top" src="/images/legumes.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h1 class="card-title">Merci pour votre commande</h1>
+    {#<p class="card-text">Récapitulatif des paramètres de la commande</p>#}
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Adresse de livraison : {{deliveryAdress.number}} {{deliveryAdress.street}} {{deliveryAdress.cp}} {{deliveryAdress.city}}</li>
+    <li class="list-group-item">Adresse de facturation : {{deliveryAdress.number}} {{deliveryAdress.street}} {{deliveryAdress.cp}} {{deliveryAdress.city}}</li>
+    <li class="list-group-item">Mode de livraison : {{deliveryMode.name}}</li>
+    <li class="list-group-item">Mode de paiement : {{paymentMode.name}}</li>
+  </ul>
+  <div class="card-body">
+
+    <a href={{path('home')}}><button: class="btn btn-primary">Retour à l'accueil</button></a>
+  </div>
+</div>
+
+
+
+{% endblock %}

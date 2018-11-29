@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel Utilisateur{% endblock %}
+
+{% block body %}
+
+
+
+<a class="btn" href= '{{ path('list_farmer')}}'>Retour à la liste des fermiers</a>
+<a class="btn" href= '{{ path('list_product')}}'>Retour à la liste des produits</a>
+
+</br></br></br>
+
+<div class="profil">
+
+<div class="home"><i class="fas fa-home"></i>Profil</div></br>
+
+<div class="userProfil">
+
+  <img src="/images/FARMERprofil.png" />
+
+  <div class="info">
+
+  <p class="title"> {{user.username}}   </p>
+
+  <p>Date de l'inscription : {{ user.date|date('Y-m-d H:i:s') }}</p>
+
+  </br><h1 class="title">Adresse</h1></br>
+  {% for adress in  user.adress %}
+    <p>{{adress.number}} {{adress.street}} {{adress.cp}} {{adress.city}} </p></br>
+  {% endfor %}
+
+  </br><h1 class="title">Produits</h1></br>
+
+
+</div>
+</div>
+</div>
+{% endblock %}

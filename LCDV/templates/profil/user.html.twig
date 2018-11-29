@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+
+<a class="btn" href= '{{ path('home')}}'>Retour à l'accueil</a></br></br>
+<div class="profil">
+
+<div class="home"><i class="fas fa-home"></i>Mon Profil</div></br>
+  <h2>Bienvenue dans votre espace client. Vous pouvez gérer vos informations personnelles et vos commandes.</h2>
+
+<div class="userProfil">
+{% if 'lorem' in user.image %}
+  <img src="{{user.image}}" />
+  {% else %}
+  <img src="/uploads/images/{{user.image}}" />
+  {% endif %}
+
+
+
+
+  <div class="info">
+
+  <p id="updateProfilUsername">Nom d'utilisateur : {{user.username}}      <i id="updateProfilUsernameClick" class="far fa-edit"></i></p>
+  <form id ="updateProfilUsernameForm" action="{{ path('update_user', {'id': app.user.id }) }}">
+  <label for="username">Entrez votre nouveau Nom d'Utilisateur</label>
+  <input type="texte" name="username" placeholder="Username">
+  <input type="hidden" name="firstname" value="">
+  <input type="hidden" name ="lastname" value="">
+  <input type ="hidden" name="description" value="">
+  <input type="submit" value="Save">
+  <i id="updateProfilUsernameClose" class="far fa-times-circle"></i></br></br>
+  </form>
+
+
+  <p id="updateProfilFirstname"> Prénom :{{user.firstname}}       <i id="updateProfilFirstnameClick" class="far fa-edit"></i></p>
+  <form id ="updateProfilFirstnameForm" action="">
+  <label for="username">Entrez votre nouveau Prénom</label>
+  <input type="hidden" name ="username" value="">
+  <input type="texte" name="firstname" placeholder="Firstname">
+  <input type="hidden" name ="lastname" value="">
+  <input type ="hidden" name="description" value="">
+  <input type="submit" value="Save">
+  <i id="updateProfilFirstnameClose" class="far fa-times-circle"></i></br></br>
+  </form>
+
+
+  <p id="updateProfilLastname">Nom : {{user.lastname}}     <i id="updateProfilLastnameClick" class="far fa-edit"></i></p>
+  <form id ="updateProfilLastnameForm" action="">
+  <label for="username">Entrez votre nouveau Nom</label>
+  <input type="hidden" name ="username" value="">
+  <input type ="hidden" name="firstname" value="">
+  <input type="texte" name="lastname" placeholder="Lastname">
+  <input type ="hidden" name="description" value="">
+  <input type="submit" value="Save">
+  <i id="updateProfilLastnameClose" class="far fa-times-circle"></i></br></br>
+  </form>
+
+
+  <p>Date de l'inscription : {{ user.date|date('Y-m-d H:i:s') }}</p
+
+
+    {% if ( app.user.role.code == 'ROLE_FARMER')%}
+  <p id="updateProfilDescription">Description: {{user.description}}     <i id="updateProfilDescriptionClick" class="far fa-edit"></i></p>
+  <form id ="updateProfilDescriptionForm" action="">
+  <label for="username">Entrez votre nouvelle description</label>
+  <input type="hidden" name ="username" value="">
+  <input type ="hidden" name="firstname" value="">
+  <input type ="hidden" name="lastname" value="">
+  <input type="texte" name="description" placeholder="Description" >
+  <input type="submit" value="Save">
+  <i id="updateProfilDescriptionClose" class="far fa-times-circle"></i></br></br>
+  </form>
+  {% endif %}
+
+
+
+  </br></br><h1 class="title"> <span>Mes Adresses</span> <a href='/new/adress?user={{app.user.id}}' class="btn plus"><i class="fas fa-plus"></i></a></h1></br>
+  {% for adress in  user.adress %}
+    <p>{{adress.number}} {{adress.street}} {{adress.cp}} {{adress.city}} <a href="/delete/adress/{{adress.id}}?user={{app.user.id}}"><i class="fas fa-times"></i></a></p></br>
+  {% endfor %}
+
+
+
+  </br><h1 class="title">Mes coordonnées bancaires <a href="/new/banking/coordinate?user={{app.user.id}}" class="btn"><i class="fas fa-plus"></i></a></h1></br>
+  {% for bc in  user.bankingcoordinate %}
+    <p>{{bc.name}} {{bc.account}} <a href="/delete/banking/coordinate/{{bc.id}}?user={{app.user.id}}"><i class="fas fa-times"></i></a></p></br>
+  {% endfor %}
+
+</div>
+
+
+</div>
+
+  <a class="btn" href='' >Supprimer profil</a>
+</div>
+
+
+{% endblock %}

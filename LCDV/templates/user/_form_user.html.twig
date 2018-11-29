@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+      <h4>Rejoignez la famille!</h4>
+        <h3> Formulaire Inscription Consommateur</h3>
+    {{ form_widget(form) }}
+    {{ form_row(form.image) }}
+    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

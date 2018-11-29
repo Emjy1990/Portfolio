@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <h1>Mise à jour du produit</h1>
+
+  {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+
+  <a href="{{ path('list_product_by_farmer', {'id' : app.user.id}) }}">Retourner à la liste</a>
+
+
+{% endblock %}

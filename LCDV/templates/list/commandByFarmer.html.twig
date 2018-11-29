@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+
+
+
+<table class="table">
+
+
+  <thead>
+    <tr>
+      <th scope="col">Commande n°</th>
+      <th scope="col">Status</th>
+      <th scope="col">Mode de livraison</th>
+    </tr>
+  </thead>
+  {% for command in commands %}
+  <tbody>
+    <tr>
+      <th>{{ command.id }}
+      {% if (command.status.name == "Autorisation en attente") %}
+      <form action="/accept/command/farmer/{{app.user.id}}">
+      <input type="submit" value="Je l'accepte">
+      <input type="hidden" name="id" value={{command.id}}>
+      </form>
+      <form action="/reject/command/farmer/{{app.user.id}}">
+      <input type="submit" value="Je refuse">
+      <input type="hidden" name="id" value={{command.id}}>
+      </form>
+      {% endif %}
+      </th>
+      <th scope="col">{{ command.status.name}}</th>
+      <th scope="col">{{ command.deliveryMode.name}}</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Produit</th>
+      <th>Price</th>
+    </tr>
+    {% for product in command.product %}
+    <tr>
+      <td></td>
+      <td>{{ product.name}}</td>
+      <td>{{ product.price}}</td>
+    </tr>
+    {% endfor%}
+  </tbody>
+  {% endfor %}
+</table>
+
+
+
+
+{% endblock %}

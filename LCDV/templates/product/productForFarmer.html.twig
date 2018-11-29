@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+<button class="btn btnNew"><a href="{{ path('create_product')}}">Ajouter un produit</a></button>
+<div class="contain flex">
+<div class="leftmenu">
+  <div class="btn-group-vertical" role="group" aria-label="Basic example">
+
+
+
+    {% for category in categories %}
+      <button type="button" class="btn btn-secondary"><a href="/product/farmer/{{app.user.id}}?category={{ category.id }}"> {{ category.name }} </a></button>
+    {% endfor %}
+
+  </div>
+</div>
+
+
+
+
+
+<div class = "list">
+
+  {% for product in products %}
+    <div class="item">
+
+
+      <div class="headproduct">
+      <img src="/uploads/images/{{product.image}}"/>
+
+      </div>
+
+        <div class="contentproduct">
+          <h3 class="productname">{{ product.name }}</h3></a>
+          <p> {{ product.description }} </p></br>
+          <div class="buttondescriptif">
+            <button class="btn" <span> {{ product.price }} &#8364;/kg</span> </button>
+            <button class="btn" <span>Disponible : {{ product.quantity }} lots</span> </button>
+            <button class="btn" <span>Catégorie : {{ product.category.name}} </span> </button>
+          </div></br>
+          <button class="btn" ><a href="{{ path('update_product', {'id': product.id}) }}">Mise à jour</a><br></button></br>
+          {{ include('product/_delete_form.html.twig') }}
+
+        </div>
+          <p class="footerproduct"> Cultivé avec &#9829; par <a href="{{ path('profil_farmer', { 'id': product.user.id}) }}">{{ product.user.username }}</a> </p>
+      </div>
+
+  {% endfor %}
+</div>
+
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

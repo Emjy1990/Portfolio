@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css?family=Miriam+Libre:400,700');
+
+body {
+  background-color: #FAFAFA;
+  font-family: 'Miriam Libre';
+}
+
+/* MENUS */
+nav {
+  margin-bottom: 3em;
+}
+
+nav::before {
+  content: ' ';
+  display: block;
+  height: 1em;
+  background: linear-gradient(to right, #F35354, #EF8054);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #CCC;
+  border-right: none;
+  flex-grow: 1;
+  text-align: center;
+  height: 50px;
+}
+
+.menu li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu .title {
+  flex-grow: 5;
+}
+
+.menu .search input {
+  border: none;
+  outline: none;
+}
+
+.menu:last-child li {
+  border-top: none;
+}
+
+.menu-hover:hover {
+  background-color: #F0F0F0;
+  color: #ED764B;
+  cursor: pointer;
+}
+
+.menu div.search-results {
+  position: absolute;
+  display: none;
+  width: 170px;
+  top: 60px;
+}
+
+.inscription button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.search-results li:hover {
+  cursor: pointer;
+  background-color: #efefef;
+}
+
+/* CONTENU */
+main {
+
+}
+
+.box {
+  background-color: #eaeaea;
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.box img {
+  border: 1px solid #CCC;
+}
+
+.area {
+  background-color: white;
+  box-shadow: 0 0 1em #CCC;
+  padding: 1em;
+}
+
+.area h3 {
+  font-size: 1.5em;
+}
+
+.area h3::after {
+  content: ' ';
+  display: block;
+  height: .2em;
+  background: linear-gradient(to right, #F35354, #EF8054);
+}
+
+
+.area ul {
+  margin: 2em 0 1em 2em;
+  font-size: .8em;
+  list-style: initial;
+}
+
+.area p {
+  font-size: .9em;
+}
+
+.area p small {
+  display: block;
+}
+
+.area p small::first-letter {
+  text-transform: uppercase;
+}
+
+.card {
+  width: 10em;
+}
+
+/* Google maps */
+.map {
+  width: 100%;
+  height: 400px;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid #e3e3e3;
+  padding: .4em;
+  font-size: .8em;
+  text-align: center;
+}

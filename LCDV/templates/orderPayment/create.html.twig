@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<div id="create_order">
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'orderForm'}})  }}
+    <h1>Créer un nouvel ordre de virement</h1>
+  {{ form_widget(form) }}
+  <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+  {{ form_end(form) }}
+  </br>
+</div></br>
+
+
+  <h1 class="titleorder" >Demande de virement</h1>
+
+  <table class="table table-order">
+  <thead>
+    <tr>
+      <td>Montant</td>
+      <td>Coordonnée bancaire</td>
+      <td>Status</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for orderPaymentFarmer in orderPaymentFarmers %}
+
+
+      <tr>
+        <td>{{ orderPaymentFarmer.amount }} €</td>
+        <td>{{ orderPaymentFarmer.bankingCoordinate.name}}</td>
+        <td>{{ orderPaymentFarmer.status.name }}</td>
+        <td>
+          <a href="{{ path('show_orderPaymentFarmer', {'id': orderPaymentFarmer.id}) }}">  {{ include('orderPayment/_delete_form.html.twig') }}
+
+</a>
+        </td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+      </table></br></br>
+
+
+
+  <a class="btn" href="{{ path('profil', {'id' : app.user.id }) }}">Retour sur profil</a>
+  <a class="btn" href="{{ path('home') }}" class="linkOrder">Retour à l'accueil</a>
+{% endblock %}

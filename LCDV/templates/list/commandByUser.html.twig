@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+
+
+
+<table class="table">
+
+
+  <thead>
+    <tr>
+      <th scope="col">Commande n°</th>
+      <th scope="col">Status</th>
+      <th scope="col">Mode de livraison</th>
+    </tr>
+  </thead>
+  {% for command in commands %}
+  <tbody>
+    <tr>
+      <th scope="row">{{ command.id }}
+      </th>
+      <th scope="col">{{ command.status.name}}</th>
+      <th scope="col">{{ command.deliveryMode.name}}</th>
+    </tr>
+    {% for product in command.product %}
+    <tr>
+      <td></td>
+      <td>{{ product.name}}</td>
+      <td>{{ product.price}}</td>
+    </tr>
+    {% endfor%}
+  </tbody></br>
+  {% endfor %}
+</table>
+
+
+
+
+{% endblock %}

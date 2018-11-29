@@ -1,0 +1,110 @@
+
+#container{
+  width: 1000px;
+  margin: auto;
+}
+header{
+  padding: 2rem;
+  background-color: lightgrey;
+  height: 50px;
+  text-align: center;
+
+}
+h1{
+  display: block;
+}
+main{
+  height: 400px;
+  padding-top: 2rem;
+}
+#plateau{
+  height: 100%;
+  background-color: lightgrey;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  margin-bottom: 5rem;
+
+}
+.carte{
+  height: 100px;
+  width: 100px;
+  background: grey;
+  border: 5px solid lightgrey;
+  box-sizing: border-box;
+  border-collapse: collapse;
+}
+.image{
+  background-image: url("../images/cards.png");
+  background-position: 0 -300px;
+}
+#acceuil{
+  padding-top: 25%;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.8;
+  color: white;
+}
+#acceuil h1, #acceuil p, #acceuil a {
+  opacity: 1;
+  margin-bottom: 1rem;
+}
+#btnmenu{
+  display: flex;
+  margin-bottom: 4rem;
+  margin-top: 5rem;
+}
+.push_button{
+        position:relative;
+        width:200px;
+        color:#FFF;
+        display:block;
+        text-decoration:none;
+        margin:0 auto;
+        border-radius:5px;
+        border:solid 1px #D94E3B;
+        background:#cb3b27;
+        text-align:center;
+        padding:20px 30px;
+        -webkit-transition: all 0.1s;
+        -moz-transition: all 0.1s;
+        transition: all 0.1s;
+        -webkit-box-shadow: 0px 9px 0px #84261a;
+        -moz-box-shadow: 0px 9px 0px #84261a;
+        box-shadow: 0px 9px 0px #84261a;
+}
+.left{
+  margin-right: 1rem;
+}
+.right{
+  margin-left: 1rem;
+}
+.push_button:active{
+    -webkit-box-shadow: 0px 2px 0px #84261a;
+    -moz-box-shadow: 0px 2px 0px #84261a;
+    box-shadow: 0px 2px 0px #84261a;
+    position:relative;
+    top:7px;
+}
+.little{
+  width: 100px;
+  padding: 0.5rem;
+}
+#gagne{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 25%;
+  display: none;
+}
+#perdu{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 25%;
+  display: none;
+}

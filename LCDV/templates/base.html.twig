@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Bienvenue!{% endblock %}</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('build/css/main.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Merienda" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="/images/carotte.png">
+</head>
+<body>
+    <header >
+        <div id="navcenter" class="mr-auto">
+            <nav id="nav" class="navbar navbar-expand-lg align-center">
+                <a class="navbar-brand" href="{{ path('home') }}"><img id="logo" src="/images/carotte.png"/></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <span class="showName nav-link" href="">Bonjour {{ app.user.username }}</span>
+                    <ul class="navbar-nav" id="navfont">
+
+                        <li class="nav-item active">
+                            <a class="nav-link align-middle" href="{{ path('list_product') }}">Produits <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('list_farmer') }}">Agriculteurs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('profil', {'id' : app.user.id }) }}">Profil</a>
+                        </li>
+                        {% else %}
+                        <span class="showName nav-link" href=""></span>
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('list_product') }}">Produits <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('list_farmer') }}">Agriculteurs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('inscription_user') }}">Inscription</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('login') }}">Connexion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('inscription_farmer') }}">Rejoignez le réseau!</a>
+                            </li>
+                            {% endif %}
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            {% if ( app.user.role.code == 'ROLE_USER')%}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('list_command_by_user' , { 'id': app.user.id }) }}:">Mes Commandes</a>
+                            </li>
+                            {% endif %}
+                            {% if ( app.user.role.code == 'ROLE_ADMINISTRATOR')%}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin">Back-Office</a>
+                            </li>
+                            {% endif %}
+                            {% if ( app.user.role.code == 'ROLE_FARMER')%}
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('list_product_by_farmer',{'id' : app.user.id}) }}">Mes Produits</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('list_command_by_farmer' , { 'id': app.user.id }) }}"> Commandes</a>
+                            </li>
+                            {% if app.session.get("totalMo") is null %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('create_orderPaymentFarmer' , { 'id': app.user.id }) }}"> Virements</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('recap_orderPaymentFarmer' , { 'id': app.user.id }) }}"> Virements</a>
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"> Solde: {{ app.user.solde}}</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        <div class="basket-container">
+                        <div class="basket-count">
+                            {% if app.session.get("basketCount") is null %}
+                            <p>0</p>
+                            {% else %}
+                            <p>{{app.session.get("basketCount")}}</p>
+                            {% endif %}
+                        </div>
+                        <div id ="cart">
+                            <a href="{{path("recap_command")}}"><i id="basket" class="fas fa-shopping-cart"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+                </nav>
+            </div>
+            {% for message in app.flashes('success') %}
+            <div class="flash-success">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </header>
+        <main>
+
+            {% block body %}{% endblock %}
+
+        </main>
+        <footer >
+            <p>Made with &#9829; by O'clock Student - <a href=" {{ path('contact') }}">Contact</a></p>
+
+        </footer>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/noreact.js') }}"></script>
+    </html>

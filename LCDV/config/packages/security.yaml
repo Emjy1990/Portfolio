@@ -1,0 +1,64 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+    providers:
+        in_memory: { memory: ~ }
+        in_database:
+          entity:
+            class: App\Entity\User
+            property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            provider: in_database
+            form_login:
+                login_path: login
+                check_path: login
+
+            logout:
+                path: logout
+                target: /
+                invalidate_session: true
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+
+        - { path: '^/admin/', roles: ROLE_ADMINISTRATOR}
+        - { path: '^/profil/[0-9]+', roles: ROLE_USER}
+        - { path: '^/update/user/[0-9]+', roles: ROLE_USER}
+        - { path: '^/delete/user/[0-9]+', roles: ROLE_USER methods: 'DELETE'}
+        - { path: '^/create/product', roles: ROLE_FARMER}
+        - { path: '^/update/product/[0-9]+', roles: ROLE_FARMER}
+        - { path: '^/delete/product/[0-9]+', roles: ROLE_FARMER, methods: 'DELETE'}
+        - { path: '^/create/orderpaymentfarmer/[0-9]+', roles: ROLE_FARMER}
+        - { path: '^/show/orderpaymentfarmer/[0-9]+', roles: ROLE_FARMER}
+        - { path: '^/delete/orderpaymentfarmer/[0-9]+', roles: ROLE_FARMER, methods: 'DELETE'}
+        - { path: '^/orderpaymentfarmer/[0-9]+', roles: ROLE_FARMER}
+        - { path: '^/list/orderpaymentfarmer/[0-9]+', roles: ROLE_FARMER}
+        - { path: '^/delete/orderpayment/[0-9]+', roles: ROLE_FARMER methods: 'DELETE'}
+        - { path: '^/list/command/farmer/[0-9]+', roles: ROLE_FARMER}
+        - { path: '^/list/command/user/[0-9]+', roles: ROLE_USER}
+        - { path: '^/create/command', roles: ROLE_USER}
+        - { path: '^/command/[0-9]+', roles: ROLE_FARMER}
+        - { path: '^/update/command/[0-9]+', roles: ROLE_USER}
+        - { path: '^/delete/command/[0-9]+', roles: ROLE_USER methods: 'DELETE'}
+
+
+
+    role_hierarchy:
+        #role de la clef contient l'autre role
+        ROLE_ADMINISTRATOR: ROLE_USER
+        ROLE_FARMER: ROLE_USER

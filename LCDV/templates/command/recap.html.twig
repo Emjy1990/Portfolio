@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+
+{% for key,command in commands %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Produits</th>
+      <th scope="col">Quantité</th>
+      <th scope="col">Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in command.product %}
+    <tr>
+      <th scope="row"></th>
+      <td>{{product.name}}</td>
+      <td>{{product.quantity}}</td>
+      <td>{{product.price}}&nbsp€</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <th scope="row">Sous-Commande n° {{key}}</th>
+      <td>Prix total de la sous-commande = {{command.price}}&nbsp€</td>
+    </tr>
+  </tbody>
+  </table>
+{% endfor %}
+{% if app.session.get('price') is null %}
+
+{% else %}
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Prix total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <th scope="row">Récapitulatif</th>
+  <td>{{app.session.get('price')}}&nbsp€</td>
+  </tr>
+  </tbody>
+  </table>
+  {% endif %}
+
+<div id="create_order">
+<form action="/create/command" method="get" class="orderForm">
+  <h1 class="h1"> Paramètres de la commande</h1>
+  <div id="order_payment_farmer">
+  <div class="form-group">
+   <label for="deliveryAdress" class="required">Choisir l'adresse de livraison </label><br>
+   <select id="monselect" name= "deliveryAdress" class="form-control">
+    {% for adress in adresses %}
+      <option value={{adress.id}}>{{adress.number}} {{adress.street}} {{adress.cp}} {{adress.city}}</option>
+    {% endfor %}
+  </select>
+  </div>
+
+  <div class="form-group">
+  <label for="paymentAdress" class="form-group">Choisir l'adresse de facturation </label><br>
+  <select id="monselect" name= "paymentAdress" class="form-control">
+   {% for adress in adresses %}
+     <option value={{adress.id}}>{{adress.number}} {{adress.street}} {{adress.cp}} {{adress.city}}</option>
+   {% endfor %}
+ </select>
+ </div>
+<div class="form-group">
+ <label for="deliveryMode" class="form-group">Choisir le mode de livraison </label><br>
+ <select id="monselect" name= "deliveryMode" class="form-control" class="form-control">
+  {% for delivery in deliveries %}
+    <option value={{delivery.id}}>{{delivery.name}}</option>
+  {% endfor %}
+</select>
+</div>
+<div class="form-group">
+<label for="paymentMode" class="form-group">Choisir le mode de  paiement</label><br>
+<select id="monselect" name= "paymentMode" class="form-control">
+ {% for payment in paiments %}
+   <option value={{payment.id}}>{{payment.name}}</option>
+ {% endfor %}
+</select>
+</div>
+<div>
+<input type="submit" value="Valider la commande" class="btn">
+
+</form>
+</div></br></br>
+<a class="btn" href="{{path("suppCart")}}">Supprimer</a>
+
+
+{# <div id="create_order">
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'orderForm'}})  }}
+    <h1>Paramètre de la commande</h1>
+  {{ form_widget(form) }}
+  <button class="btn">{{ button_label|default('Valider') }}</button>
+  {{ form_end(form) }}
+  </br>
+</div> #}
+
+
+{% endblock %}
