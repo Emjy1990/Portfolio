@@ -20,4 +20,4 @@ J'espère que cela pourra vous aider!
 
 N'hésitez pas à aller sur oclock.io pour voir le programme de la formation mieux expliqué.
 
-N'hésitez pas à me contacter pour toute questions!
+N'hésitez pas à me contacter pour toutes questions!
